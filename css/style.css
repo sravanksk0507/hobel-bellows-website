@@ -24,7 +24,7 @@
     --gray-600: #6B6259;
     --gray-800: #3A352F;
     --charcoal: #2C2C2C;
-    --black: #1A1A1A;
+    --black: #1a1a1a;
 
     /* Accent */
     --gold: #C9A96E;
@@ -185,7 +185,7 @@ h6 {
     gap: 12px;
     font-family: 'Outfit', sans-serif;
     font-weight: 700;
-    font-size: 1.4rem;
+    font-size: 2rem;
     color: var(--white);
     transition: color 0.3s var(--ease);
 }
@@ -386,7 +386,7 @@ h6 {
     display: flex;
     align-items: center;
     position: relative;
-    background: linear-gradient(135deg, var(--black) 0%, var(--primary-dark) 50%, var(--primary) 100%);
+    background:var(--black);
     overflow: hidden;
 }
 
@@ -395,7 +395,7 @@ h6 {
     position: absolute;
     inset: 0;
     background: url('../images/RB3.JPG') center/cover no-repeat;
-    opacity: 0.15;
+    opacity: 0.35;
     z-index: 0;
 }
 
@@ -488,7 +488,7 @@ h6 {
     width: 500px;
     height: 500px;
     border-radius: 50%;
-    background: radial-gradient(circle, rgba(155, 35, 53, 0.3) 0%, transparent 70%);
+    background: radial-gradient(circle, rgb(0, 0, 0) 0%, transparent 0%);
     filter: blur(60px);
     z-index: 0;
 }
@@ -504,8 +504,8 @@ h6 {
 
 .stats-grid {
     display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 30px;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 20px;
 }
 
 .stat-card {
@@ -526,7 +526,7 @@ h6 {
 
 .stat-card::before {
     content: '';
-    position: absolute;
+    position: center;
     top: 0;
     left: 0;
     width: 100%;
@@ -548,7 +548,7 @@ h6 {
 
 .stat-number {
     font-family: 'Outfit', sans-serif;
-    font-size: 2.8rem;
+    font-size: 2rem;
     font-weight: 800;
     color: var(--primary);
     line-height: 1;
@@ -1062,12 +1062,12 @@ h6 {
    ========================================== */
 /* Page Hero (inner pages) */
 .page-hero {
-    min-height: 50vh;
+    min-height: 60vh;
     display: flex;
     align-items: center;
     justify-content: right;
     position: relative;
-    background: linear-gradient(135deg, var(--black) 0%, var(--primary-dark) 100%);
+    background: linear-gradient(135deg, var(--black) 0%, var(--black) 50%);
     text-align: center;
     padding-top: var(--nav-height);
 }
