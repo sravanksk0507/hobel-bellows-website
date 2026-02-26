@@ -394,8 +394,8 @@ h6 {
     content: '';
     position: absolute;
     inset: 0;
-    background: url('../images/RB3.JPG') center/cover no-repeat;
-    opacity: 0.35;
+    background: url('../images/RB6.JPG') center/cover no-repeat;
+    opacity: 0.45;
     z-index: 0;
 }
 
@@ -653,9 +653,9 @@ h6 {
 
 .customers-grid {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(4, 1fr);
     gap: 30px;
-    max-width: 960px;
+    max-width: 2560px;
     margin: 0 auto;
 }
 
