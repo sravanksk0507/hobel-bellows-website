@@ -1941,6 +1941,6 @@ h6 {
 /* ===== Mobile Hero Image Fix ===== */
 @media (max-width: 768px) {
     .hero::before {
-        background-position: -30% center;
+        background-position: 70% center;
     }
 }
