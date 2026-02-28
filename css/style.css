@@ -1973,58 +1973,6 @@ h6 {
     height:100%;
     object-fit:cover;
 }
-
-/* navigation arrows hidden */
-/* hide default swiper icon */
-.swiper-button-next::after,
-.swiper-button-prev::after{
-    display:none;
-}
-
-/* actual arrow button */
-.swiper-button-next,
-.swiper-button-prev{
-    width:60px;
-    height:120px;
-    border-radius:10px;
-    background:rgba(0,0,0,0.45);
-    backdrop-filter:blur(6px);
-    border:1px solid rgba(255, 255, 255, 0.562);
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    position:center;
-    top:50%;
-    transform:translateY(-50%);
-    opacity:0;
-    transition:opacity .25s ease, transform .25s ease, background .25s ease;
-    z-index:5;
-}
-
-/* positions */
-.swiper-button-prev{ left:30px; }
-.swiper-button-next{ right:30px; }
-
-/* arrow symbol */
-.swiper-button-next::before,
-.swiper-button-prev::before{
-    content:"";
-    width:14px;
-    height:14px;
-    border-top:4px solid #fff;
-    border-right:4px solid #fff;
-}
-
-.swiper-button-next::before{ transform:rotate(45deg); }
-.swiper-button-prev::before{ transform:rotate(-135deg); }
-
-/* hover look */
-.swiper-button-next:hover,
-.swiper-button-prev:hover{
-    background:var(--primary);
-    border-color:var(--primary);
-    transform:translateY(-50%) scale(1.5);
-}
 /* Prevent navbar covering hero content */
 .hero .container{
     padding-top: var(--nav-height);
@@ -2407,4 +2355,84 @@ h6 {
     .infra-grid{
         grid-template-columns:1fr;
     }
+}
+/* =====================================================
+   SWIPER HERO NAVIGATION (20% EDGE DETECTION)
+   ===================================================== */
+
+/* remove default arrows */
+.swiper-button-next::after,
+.swiper-button-prev::after{
+    display:none;
+}
+
+/* invisible hover zones */
+.swiper-button-prev,
+.swiper-button-next{
+    position:absolute;
+    top:0;
+    height:100%;
+    width:20%;
+    z-index:5;
+}
+
+.swiper-button-prev{ left:0; }
+.swiper-button-next{ right:0; }
+
+/* visible button background */
+.swiper-button-prev::before,
+.swiper-button-next::before{
+    content:"";
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:55px;
+    height:55px;
+    border-radius:14px;
+    background:rgba(0,0,0,0.45);
+    backdrop-filter:blur(6px);
+    border:1px solid rgba(255,255,255,0.35);
+    opacity:0;
+    transition:.25s ease;
+}
+
+.swiper-button-prev::before{ left:30px; }
+.swiper-button-next::before{ right:30px; }
+
+/* arrow icons */
+.swiper-button-prev span,
+.swiper-button-next span{
+    position:absolute;
+    top:50%;
+    width:14px;
+    height:14px;
+    border-top:3px solid #fff;
+    border-right:3px solid #fff;
+    transform:translateY(-50%) rotate(45deg);
+    opacity:0;
+    transition:.25s ease;
+}
+
+.swiper-button-prev span{
+    left:52px;
+    transform:translateY(-50%) rotate(-135deg);
+}
+
+.swiper-button-next span{
+    right:52px;
+}
+
+/* show when cursor inside hero */
+.hero:hover .swiper-button-prev::before,
+.hero:hover .swiper-button-next::before,
+.hero:hover .swiper-button-prev span,
+.hero:hover .swiper-button-next span{
+    opacity:1;
+}
+
+/* hover highlight */
+.swiper-button-prev:hover::before,
+.swiper-button-next:hover::before{
+    background:var(--primary);
+    border-color:var(--primary);
 }
