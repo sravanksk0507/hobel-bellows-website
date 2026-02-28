@@ -25,17 +25,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // ---------- Navbar Scroll ----------
-    const navbar = document.querySelector('.navbar');
-    const handleScroll = () => {
-        if (window.scrollY > 60) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+// ---------- SMART NAVBAR SYSTEM ----------
+const navbar = document.getElementById("navbar");
+const heroSection = document.getElementById("hero");
+
+// CASE 1 — HOME PAGE (hero exists)
+if(heroSection){
+
+    const heroObserver = new IntersectionObserver((entries)=>{
+        entries.forEach(entry=>{
+
+            if(entry.intersectionRatio > 0.25){
+                // inside hero
+                navbar.classList.add("in-hero");
+                navbar.classList.remove("scrolled");
+            }else{
+                // left hero
+                navbar.classList.remove("in-hero");
+                navbar.classList.add("scrolled");
+            }
+
+        });
+    },{
+        threshold:[0.25]
+    });
+
+    heroObserver.observe(heroSection);
+
+}
+// CASE 2 — OTHER PAGES (no hero)
+else{
+
+    const handleScroll = ()=>{
+        if(window.scrollY > 10){
+            navbar.classList.add("scrolled");
+        }else{
+            navbar.classList.remove("scrolled");
         }
     };
-    window.addEventListener('scroll', handleScroll);
-    handleScroll(); // on load
+
+    window.addEventListener("scroll", handleScroll);
+    handleScroll();
+
+}
 
     // ---------- Active Nav Link ----------
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';

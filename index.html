@@ -9,6 +9,7 @@
         content="Hobel Bellows Co. is one of the largest Manufacturers of Metallic Mellows, Expansion Joints, Corrugated Hoses, and Automotive Components. ISO 9001:2015 & IATF 16949:2016 certified.">
     <link rel="stylesheet" href="css/style.css">
     <link rel="shortcut icon" type="image/x-icon" href="images/Favicon4.ico">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 </head>
 
 <body>
@@ -34,7 +35,49 @@
 
     <!-- ===== HERO ===== -->
     <section class="hero" id="hero">
-        <div class="hero-visual"></div>
+        <div class="hero-visual">
+            <div class="hero-overlay"></div>
+
+            <div class="swiper heroSwiper">
+                <div class="swiper-wrapper">
+
+                    <!-- Slide 1 : Shopfloor View -->
+                    <div class="swiper-slide">
+                        <img src="images/HERO1.JPG" class="hero-media Shopfloor">
+                    </div>
+                    
+                    <!-- Slide 2 : Robotic Arm -->
+                    <div class="swiper-slide">
+                        <img src="images/RB6.JPG" class="hero-media Arm">
+                    </div>
+
+                    <!-- Slide 3 : Bellows -->
+                    <div class="swiper-slide">
+                        <img src="images/VIC2(1).JPG" class="hero-media Bellows">
+                    </div>
+
+                    <!-- Slide 4 : Video 
+                    <div class="swiper-slide video-slide">
+                        <video class="hero-video" muted playsinline preload="metadata">
+                            <source src="videos/bellows.mp4" type="video/mp4">
+                        </video>
+                    </div>-->
+
+                    <!-- Slide 5 : CMM -->
+                    <div class="swiper-slide">
+                        <img src="images/CMM1.JPG" class="hero-media CMM">
+                    </div>
+
+                </div>
+
+                <!-- navigation arrows -->
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+                <div class="swiper-pagination"></div>
+
+            </div>
+
+        </div>
         <div class="container">
             <div class="hero-content">
                 <h1>Engineered for <span class="highlight">Performance</span></h1>
@@ -53,7 +96,7 @@
     <section class="stats" id="stats">
         <div class="container">
             <div class="stats-grid">
-                
+
                 <div class="stat-card reveal">
                     <div class="stat-icon">⌛</div>
                     <div class="stat-number" data-count="30" data-suffix="+">0</div>
@@ -374,6 +417,8 @@
     </footer>
 
     <script src="js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="js/hero-slider.js"></script>
 </body>
 
 </html>
