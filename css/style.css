@@ -1323,21 +1323,22 @@ h6 {
 /* Infrastructure */
 .infrastructure {
     padding: 100px 0;
+    background: var(--white);
 }
 
 .infra-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
     gap: 24px;
 }
 
 .infra-card {
-    display: flex;
-    gap: 20px;
-    padding: 28px;
-    background: var(--off-white);
     border-radius: 16px;
-    transition: all 0.3s var(--ease);
+    overflow:hidden;
+    background: var(--off-white);
+    box-shadow: var(--shadow-md);
+    transition: transform 0.4s var(--ease), box-shadow 0.4s var(--ease);
+    position: relative;
 }
 
 .infra-card:hover {
@@ -2243,7 +2244,7 @@ h6 {
 /* grid */
 .infra-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:34px;
 }
 
@@ -2337,7 +2338,7 @@ h6 {
 
 .infra-grid{
     display:grid;
-    grid-template-columns:repeat(2,1fr);
+    grid-template-columns:repeat(3,1fr);
     gap:20px;
 }
 
