@@ -2436,3 +2436,17 @@ h6 {
     background:var(--primary);
     border-color:var(--primary);
 }
+/* ==========================================
+   HIDE HERO NAVIGATION ON MOBILE & TABLETS
+   (phones portrait + landscape + iPads)
+   ========================================== */
+
+@media (hover: none) and (pointer: coarse) {
+
+    /* hide arrow zones */
+    .hero .swiper-button-next,
+    .hero .swiper-button-prev{
+        display:none !important;
+    }
+
+}
