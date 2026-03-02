@@ -2459,7 +2459,7 @@ h6 {
 
     /* remove buttons */
     .hero-buttons{
-        display:none !important;
+        display:relative !important;
     }
 
     /* tighten spacing because buttons are gone */
