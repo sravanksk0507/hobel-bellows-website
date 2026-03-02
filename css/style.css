@@ -2450,3 +2450,25 @@ h6 {
     }
 
 }
+/* ==========================================
+   HIDE HERO CTA BUTTONS ON MOBILE DEVICES
+   (phones & tablets — portrait + landscape)
+   ========================================== */
+
+@media (hover: none) and (pointer: coarse) {
+
+    /* remove buttons */
+    .hero-buttons{
+        display:none !important;
+    }
+
+    /* tighten spacing because buttons are gone */
+    .hero-content{
+        padding-bottom:40px;
+    }
+
+    /* move dots slightly upward for balance */
+    .hero .swiper-pagination{
+        bottom:35px !important;
+    }
+}
