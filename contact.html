@@ -91,7 +91,7 @@
                 <!-- Form Side -->
                 <div class="contact-form-wrapper reveal-right">
                     <h3>Send Us a Message</h3>
-                    <form id="contactForm" action="sendmail.php" method="POST">
+                    <form id="contactForm"> <!-- action="sendmail.php" method="POST" -->
                         <div class="form-row">
                             <div class="form-group">
                                 <label for="name">Full Name *</label>
@@ -124,7 +124,7 @@
                             <textarea id="message" name="message" placeholder="Tell us about your requirements..."
                                 required></textarea>
                         </div>
-                        <button type="submit" class="submit-btn">Send Message →</button>
+                        <button type="submit" class="submit-btn" id="submitBtn">Send Message →</button>
                     </form>
                 </div>
             </div>
@@ -209,6 +209,39 @@
     </footer>
 
     <script src="js/main.js"></script>
+
+    
+<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+
+    emailjs.init("e3Pf7vT4mweO7YjHy");
+
+    const form = document.getElementById("contactForm");
+
+    form.addEventListener("submit", function (e) {
+        e.preventDefault();
+
+        emailjs.sendForm(
+            "service_oiawzmq",
+            "template_mid8aos",
+            this
+        )
+        .then(function () {
+            alert("Message sent successfully!");
+            form.reset();
+        })
+        .catch(function (error) {
+            alert("Failed to send message.");
+            console.error("EmailJS Error:", error);
+        });
+
+    });
+
+});
+</script>
+
 </body>
 
 </html>
