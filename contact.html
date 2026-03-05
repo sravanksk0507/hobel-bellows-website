@@ -126,13 +126,43 @@
                         </div>
                         <button type="submit" class="submit-btn" id="submitBtn">Send Message →</button>
                     </form>
+
+                    <!-- Thank-you card (hidden until form is submitted) -->
+                    <div id="thankYouCard"
+                        style="display:none; text-align:center; padding: 40px 20px; animation: fadeInUp 0.5s ease;">
+                        <div
+                            style="width:72px; height:72px; border-radius:50%; background:var(--primary); display:flex; align-items:center; justify-content:center; margin:0 auto 24px; font-size:2rem; color:#fff;">
+                            &#10003;</div>
+                        <h3
+                            style="font-family:'Outfit',sans-serif; font-size:1.6rem; color:var(--charcoal); margin-bottom:10px;">
+                            Thank You!</h3>
+                        <p id="thankYouName" style="font-size:1rem; color:var(--gray-600); margin-bottom:8px;"></p>
+                        <!-- <p style="font-size:0.92rem; color:var(--gray-400); margin-bottom:28px;">We'll get back to you
+                            within 1–2 business days.</p> -->
+                        <button onclick="resetContactForm()"
+                            style="padding:12px 32px; border-radius:50px; background:transparent; border:2px solid var(--primary); color:var(--primary); font-family:'Outfit',sans-serif; font-weight:600; font-size:0.95rem; cursor:pointer; transition:all 0.3s ease;"
+                            onmouseover="this.style.background='var(--primary)';this.style.color='#fff';"
+                            onmouseout="this.style.background='transparent';this.style.color='var(--primary)';">Send
+                            Another Message</button>
+
+                        <!-- Company branding -->
+                        <div
+                            style="margin-top:32px; padding-top:24px; border-top:1px solid var(--gray-100); display:flex; align-items:center; justify-content:center; gap:12px;">
+                            <img src="images/logo.png" alt="Hobel Bellows Logo"
+                                style="height:52px; width:auto; object-fit:contain; border-radius:10px; background:var(--white); padding:4px; box-shadow:0 2px 8px rgba(0,0,0,0.1);">
+                            <span
+                                style="font-family:'Outfit',sans-serif; font-weight:700; font-size:2rem; color:var(--primary);">Hobel
+                                Bellows Co.</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
             <!-- Google Map -->
             <div class="map-embed reveal">
                 <iframe
-                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7601.632647324036!2d83.15294019414206!3d17.706134928492343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a396f304e3b030b%3A0xa48a9fe595cfcc5b!2sHobel%20bellows!5e0!3m2!1sen!2sus!4v1771994219775!5m2!1sen!2sus" width="600" height="450" style="border:0;">"
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7601.632647324036!2d83.15294019414206!3d17.706134928492343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a396f304e3b030b%3A0xa48a9fe595cfcc5b!2sHobel%20bellows!5e0!3m2!1sen!2sus!4v1771994219775!5m2!1sen!2sus"
+                    width="600" height="450" style="border:0;">"
                     allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
                     title="Hobel Bellows Manufacturing Unit Location">
                 </iframe>
@@ -210,37 +240,81 @@
 
     <script src="js/main.js"></script>
 
-    
-<script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-<script>
-document.addEventListener("DOMContentLoaded", function () {
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
-    emailjs.init("e3Pf7vT4mweO7YjHy");
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
 
-    const form = document.getElementById("contactForm");
+            emailjs.init("e3Pf7vT4mweO7YjHy");
 
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
+            const form = document.getElementById("contactForm");
+            const submitBtn = document.getElementById("submitBtn");
 
-        emailjs.sendForm(
-            "service_oiawzmq",
-            "template_mid8aos",
-            this
-        )
-        .then(function () {
-            alert("Message sent successfully!");
-            form.reset();
-        })
-        .catch(function (error) {
-            alert("Failed to send message.");
-            console.error("EmailJS Error:", error);
+            form.addEventListener("submit", function (e) {
+                e.preventDefault();
+
+                // Basic client-side validation
+                const nameVal = document.getElementById("name").value.trim();
+                const emailVal = document.getElementById("email").value.trim();
+                const messageVal = document.getElementById("message").value.trim();
+
+                if (!nameVal || !emailVal || !messageVal) {
+                    alert("Please fill in all required fields.");
+                    return;
+                }
+
+                // Button loading state
+                submitBtn.textContent = "Sending…";
+                submitBtn.disabled = true;
+
+                // Explicit mapping — update your EmailJS template to use these variables:
+                //   {{from_name}}  {{from_email}}  {{phone}}  {{subject}}  {{message}}
+                const templateParams = {
+                    from_name: nameVal,
+                    from_email: emailVal,
+                    phone: document.getElementById("phone").value.trim() || "Not provided",
+                    subject: document.getElementById("subject").value.trim() || "General Inquiry",
+                    message: messageVal,
+                    reply_to: emailVal
+                };
+
+                // Show thank-you card, hide form
+                function showThankYou(firstName) {
+                    form.style.display = 'none';
+                    document.querySelector('.contact-form-wrapper h3').style.display = 'none';
+                    const card = document.getElementById('thankYouCard');
+                    document.getElementById('thankYouName').textContent =
+                        'Your message has been received, ' + firstName + '. We appreciate you reaching out!';
+                    card.style.display = 'block';
+                }
+
+                // Reset back to form
+                window.resetContactForm = function () {
+                    form.reset();
+                    form.style.display = '';
+                    document.querySelector('.contact-form-wrapper h3').style.display = '';
+                    document.getElementById('thankYouCard').style.display = 'none';
+                };
+
+                emailjs.send("service_oiawzmq", "template_mid8aos", templateParams)
+                    .then(function () {
+                        showThankYou(nameVal);
+                        form.reset();
+                    })
+                    .catch(function (error) {
+                        alert("Failed to send message. Please email us directly at info@hobelco.com");
+                        console.error("EmailJS Error:", error);
+                    })
+                    .finally(function () {
+                        submitBtn.textContent = "Send Message →";
+                        submitBtn.disabled = false;
+                    });
+            });
+
         });
+    </script>
 
-    });
-
-});
-</script>
 
 </body>
 

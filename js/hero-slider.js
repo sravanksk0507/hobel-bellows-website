@@ -28,10 +28,10 @@ const swiper = new Swiper(".heroSwiper", {
   }
 });
 
-function controlVideo(swiper){
+function controlVideo(swiper) {
 
   // stop all videos
-  document.querySelectorAll('.hero-video').forEach(video=>{
+  document.querySelectorAll('.hero-video').forEach(video => {
     video.pause();
     video.currentTime = 0;
   });
@@ -39,16 +39,16 @@ function controlVideo(swiper){
   const activeSlide = swiper.slides[swiper.activeIndex];
   const video = activeSlide.querySelector("video");
 
-  if(video){
+  if (video) {
     swiper.autoplay.stop();
 
     video.play();
 
-    video.onended = ()=>{
+    video.onended = () => {
       swiper.slideNext();
       swiper.autoplay.start();
     }
-  }else{
+  } else {
     swiper.autoplay.start();
   }
 }
@@ -56,8 +56,12 @@ const heroSection = document.querySelector(".hero");
 const nextBtn = document.querySelector(".swiper-button-next");
 const prevBtn = document.querySelector(".swiper-button-prev");
 
-heroSection.addEventListener("mousemove", (e)=>{
+// Edge-detection: only on real mouse (fine pointer) devices.
+// On touch/tablet devices, CSS (@media pointer:coarse) keeps arrows visible always.
+const hasFinePointer = window.matchMedia("(pointer: fine)").matches;
 
+if (hasFinePointer && heroSection) {
+  heroSection.addEventListener("mousemove", (e) => {
     const rect = heroSection.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const width = rect.width;
@@ -67,15 +71,17 @@ heroSection.addEventListener("mousemove", (e)=>{
 
     prevBtn.style.opacity = (x <= leftZone) ? "1" : "0";
     nextBtn.style.opacity = (x >= rightZone) ? "1" : "0";
-});
+  });
 
-heroSection.addEventListener("mouseleave", ()=>{
-    nextBtn.style.opacity="0";
-    prevBtn.style.opacity="0";
-});
+  heroSection.addEventListener("mouseleave", () => {
+    nextBtn.style.opacity = "0";
+    prevBtn.style.opacity = "0";
+  });
+}
 
-document.querySelectorAll(".hero-video").forEach(video=>{
-    video.addEventListener("ended", ()=>{
-        swiper.slideNext();
-    });
+
+document.querySelectorAll(".hero-video").forEach(video => {
+  video.addEventListener("ended", () => {
+    swiper.slideNext();
+  });
 });

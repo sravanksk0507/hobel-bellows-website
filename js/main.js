@@ -25,49 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-// ---------- SMART NAVBAR SYSTEM ----------
-const navbar = document.getElementById("navbar");
-const heroSection = document.getElementById("hero");
+    // ---------- SMART NAVBAR SYSTEM ----------
+    // Unified: transparent at the very top, solid white once scrolled — all pages.
+    const navbar = document.getElementById("navbar");
 
-// CASE 1 — HOME PAGE (hero exists)
-if(heroSection){
-
-    const heroObserver = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-
-            if(entry.intersectionRatio > 0.25){
-                // inside hero
-                navbar.classList.add("in-hero");
-                navbar.classList.remove("scrolled");
-            }else{
-                // left hero
-                navbar.classList.remove("in-hero");
-                navbar.classList.add("scrolled");
-            }
-
-        });
-    },{
-        threshold:[0.25]
-    });
-
-    heroObserver.observe(heroSection);
-
-}
-// CASE 2 — OTHER PAGES (no hero)
-else{
-
-    const handleScroll = ()=>{
-        if(window.scrollY > 10){
+    const handleNavScroll = () => {
+        if (window.scrollY > 10) {
             navbar.classList.add("scrolled");
-        }else{
+            navbar.classList.remove("in-hero");
+        } else {
             navbar.classList.remove("scrolled");
+            navbar.classList.add("in-hero");
         }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    handleScroll();
-
-}
+    window.addEventListener("scroll", handleNavScroll);
+    handleNavScroll(); // run immediately on page load
 
     // ---------- Active Nav Link ----------
     const currentPage = window.location.pathname.split('/').pop() || 'index.html';
@@ -140,29 +113,18 @@ else{
         });
     });
 
-    // ---------- Contact Form Validation ----------
+    // ---------- Contact Form (EmailJS handles submission in contact.html) ----------
+    // Note: Client-side validation only — no submit interception so EmailJS can fire
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-
-            const name = contactForm.querySelector('#name').value.trim();
-            const email = contactForm.querySelector('#email').value.trim();
-            const message = contactForm.querySelector('#message').value.trim();
-
-            if (!name || !email || !message) {
-                showNotification('Please fill in all required fields.', 'error');
-                return;
-            }
-
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(email)) {
-                showNotification('Please enter a valid email address.', 'error');
-                return;
-            }
-
-            showNotification('Thank you! Your message has been sent. We\'ll get back to you soon.', 'success');
-            contactForm.reset();
+        contactForm.querySelectorAll('input[required], textarea[required]').forEach(field => {
+            field.addEventListener('blur', () => {
+                if (!field.value.trim()) {
+                    field.style.borderColor = 'var(--primary)';
+                } else {
+                    field.style.borderColor = '';
+                }
+            });
         });
     }
 

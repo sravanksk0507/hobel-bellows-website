@@ -28,12 +28,13 @@ $message
     $headers = "From: $email\r\n";
     $headers .= "Reply-To: $email\r\n";
 
-    if(mail($to, $email_subject, $email_body, $headers)) {
+    if (mail($to, $email_subject, $email_body, $headers)) {
         echo "<script>
         alert('Message sent successfully!');
         window.location.href='contact.html';
         </script>";
-    } else {
+    }
+    else {
         echo "<script>
         alert('Message failed to send.');
         window.location.href='contact.html';
